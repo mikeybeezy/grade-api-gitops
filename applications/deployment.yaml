@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grade-submission-api
-  namespace: default
+  name: grade-api-api
+  namespace: argocd
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: grade-submission-api
+      app: grade-api-api
   template:
     metadata:
       labels:
-        app: grade-submission-api
+        app: grade-api-api
     spec:
       imagePullSecrets:
       - name: ghcr-secret
       containers:
-      - name: grade-submission-api
+      - name: grade-api-api
         image: ghcr.io/mikeybeezy/kubernetes-cicd-pipeline:8da82077711e08953b6a8a3a4e3462e14202c38f
         ports:
         - containerPort: 3000
@@ -31,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: grade-submission-api
-  namespace: default
+  name: grade-api-api
+  namespace: argocd
 spec:
   selector:
-    app: grade-submission-api
+    app: grade-api-api
   ports:
   - port: 80
     targetPort: 3000
